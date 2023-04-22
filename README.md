@@ -1,2 +1,2 @@
 # The Hateful Memes Challenge: Detecting Hate Speech in Multimodal Memes
-Facebook Hatebook Memes Challenge
+Testing different language models to predict hateful contents based on image caption.
