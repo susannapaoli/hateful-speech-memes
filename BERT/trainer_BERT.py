@@ -6,11 +6,11 @@ import torch.optim as optim
 from collections import defaultdict
 
 
-train_loss= []
-v_loss = []
-v_acc = []
 
 def train(model, data_loader, test_loader, criterion, optimizer, lr_scheduler, modelpath, writer, device, epochs):
+    train_loss= []
+    v_loss = []
+    v_acc = []
 
     model.train()
 
@@ -63,6 +63,7 @@ def train(model, data_loader, test_loader, criterion, optimizer, lr_scheduler, m
             
             
         training_loss = avg_loss/len(data_loader)
+        
        
         print('Epoch: ', epoch+1)            
         print('training loss = ', training_loss)
@@ -77,6 +78,8 @@ def train(model, data_loader, test_loader, criterion, optimizer, lr_scheduler, m
         writer.add_scalar("Loss/train", training_loss, epoch)            
         writer.add_scalar('Loss/Validation', valid_loss, epoch)
         writer.add_scalar('Accuracy/Validation', acc, epoch)
+        return train_loss, v_loss, v_acc
+
        
       
 
