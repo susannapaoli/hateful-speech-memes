@@ -33,10 +33,10 @@ class mydataset():
             
             for line in f:
                 #path, caption, label = line[:-1].split('\t')
-                data = json.loads(line)
-                path = data['img']
-                caption = data['text']
-                label = data['label']
+                #data = json.loads(line)
+                path = line['img']
+                caption = line['text']
+                label = line['label']
                 self.X.append('/content/data/'+path)
                 self.Cap.append(caption)
                 self.Y.append(label)
