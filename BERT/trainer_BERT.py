@@ -78,7 +78,7 @@ def train(model, data_loader, test_loader, criterion, optimizer, lr_scheduler, m
         writer.add_scalar("Loss/train", training_loss, epoch)            
         writer.add_scalar('Loss/Validation', valid_loss, epoch)
         writer.add_scalar('Accuracy/Validation', acc, epoch)
-        return train_loss, v_loss, v_acc
+    return train_loss, v_loss, v_acc
 
        
       
