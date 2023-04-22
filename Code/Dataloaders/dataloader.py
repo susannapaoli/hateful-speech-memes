@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader, Dataset, TensorDataset
 from torch.utils import data
 from torchvision import transforms, datasets, models
 from PIL import Image
-
+import json
 
 '''
 Load the BERT tokenizer.
@@ -32,11 +32,15 @@ class mydataset():
         with open(classification_list, mode = 'r') as f:
             
             for line in f:
-                path, caption, label = line[:-1].split('\t')
-
-                self.X.append('/home/ironman/abhishek/GBM/FB/Code/data/'+path)
+                #path, caption, label = line[:-1].split('\t')
+                data = json.loads(line)
+                path = data['img']
+                caption = data['text']
+                label = data['label']
+                self.X.append('/content/drive/MyDrive/[0][b] GaTech Academic/[3] CS 4644 Deep Learning/[3] Final Project-Hateful Memes/[2] Dataset/hateful_memes/'+path)
                 self.Cap.append(caption)
                 self.Y.append(label)
+                
         
         '''
         Tokenize all of the captions and map the tokens to thier word IDs, and get respective attention masks.
