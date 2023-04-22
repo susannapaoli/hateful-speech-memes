@@ -9,8 +9,8 @@ import json
 '''
 Load the BERT tokenizer.
 '''
-from transformers import BertTokenizer
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+from transformers import DistilBertTokenizer
+tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased', do_lower_case=True)
 
 
 
