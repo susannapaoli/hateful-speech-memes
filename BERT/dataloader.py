@@ -37,7 +37,7 @@ class mydataset():
                 path = data['img']
                 caption = data['text']
                 label = data['label']
-                self.X.append('/content/drive/MyDrive/[0][b] GaTech Academic/[3] CS 4644 Deep Learning/[3] Final Project-Hateful Memes/[2] Dataset/hateful_memes/'+path)
+                self.X.append('/content/data'+path)
                 self.Cap.append(caption)
                 self.Y.append(label)
                 
@@ -189,7 +189,7 @@ class mytestdataset():
             for line in f:
                 path, caption = line[:-1].split('\t')
 
-                self.X.append('/home/ironman/abhishek/GBM/FB/Code/data/'+path)
+                self.X.append('/content/data'+path)
                 self.Cap.append(caption)
                 self.Imagename.append(path.split('/')[1][:-4])
         
@@ -273,7 +273,7 @@ class mydataset_captioning():
                 
                 path, caption, generated_caption, label = line[:-1].split('\t')
 
-                self.X.append('/home/ironman/abhishek/GBM/FB/Code/data/'+path)
+                self.X.append('/content/data'+path)
                 self.true_Cap.append(caption)
                 self.generated_Cap.append(generated_caption)
                 self.Y.append(label)
