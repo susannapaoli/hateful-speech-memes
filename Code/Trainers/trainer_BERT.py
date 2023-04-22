@@ -11,27 +11,17 @@ v_loss = []
 v_acc = []
 
 
-def train(model, data_loader, test_loader, criterion, optimizer, lr_scheduler, modelpath, writer, device, epochs):
-    
-    model.train()
-
-    for epoch in range(epochs):
-        avg_loss = 0.0
-                
-        
-        for batch_num, (feats, captions, input_id, attention_masks, target) in enumerate(data_loader):
-            feats, target = feats.to(device), target.to(device)
+for batch_num, (captions, input_id, attention_masks, target) in enumerate(data_loader):
+            target = target.to(device)
             input_ids, attention_masks = input_id.to(device), attention_masks.to(device)
                 
-            '''
-            Compute output and loss from BERT
-            '''
+            
             loss, logits = model(input_ids, 
                              token_type_ids=None, 
                              attention_mask=attention_masks, 
                              labels=target
                                 )
-
+            print(loss)
                    
             '''
             Take Step
@@ -58,7 +48,7 @@ def train(model, data_loader, test_loader, criterion, optimizer, lr_scheduler, m
             if batch_num % 100 == 99:
                 print('loss', avg_loss/100)
                 
-            del feats
+            
             del captions
             del input_ids
             del attention_masks
@@ -114,14 +104,12 @@ def test_classify(model, test_loader, criterion, device):
     top1_accuracy = 0
     total = 0
 
-    for batch_num, (feats, captions, input_id, attention_masks, target) in enumerate(test_loader):
+    for batch_num, (captions, input_id, attention_masks, target) in enumerate(test_loader):
         
-        feats, target = feats.to(device), target.to(device)
+        target = target.to(device)
         input_ids, attention_masks = input_id.to(device), attention_masks.to(device)
             
-        '''
-        Compute output and loss from BERT
-        '''
+        
         loss, logits = model(input_ids, 
                          token_type_ids=None, 
                          attention_mask=attention_masks, 
@@ -139,7 +127,7 @@ def test_classify(model, test_loader, criterion, device):
         
         total += len(target)
         
-        del feats
+        
         del captions
         del input_ids
         del attention_masks
