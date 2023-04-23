@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def plot_loss(epochs, train_loss, v_loss, title):
-    plt.figure(figsize=(8,8))
+    plt.figure(figsize=(5,5))
     x = np.arange(1,epochs+1)
     plt.plot(x, train_loss, label = 'Training Loss')
     plt.plot(x, v_loss, label = 'Validation Loss')
@@ -14,7 +14,7 @@ def plot_loss(epochs, train_loss, v_loss, title):
     
     
 def plot_acc(epochs,v_acc):
-    plt.figure(figsize=(8,8))
+    plt.figure(figsize=(5,5))
     x = np.arange(1,epochs+1)
     plt.plot(x, v_acc)
     plt.xlabel('Epochs', fontsize =16)
