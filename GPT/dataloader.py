@@ -13,8 +13,8 @@ from transformers import GPT2Tokenizer
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2', do_lower_case=True)
 pad_token = '<pad>'
 pad_token_id = tokenizer.convert_tokens_to_ids(pad_token)
-
-tokenizer.set_padding(pad_token=pad_token, pad_token_id=pad_token_id)
+tokenizer.pad_token = pad_token
+tokenizer.pad_token_id = pad_token_id
 
 
 
