@@ -33,10 +33,11 @@ class mydataset():
             
             for line in f:
                 #path, caption, label = line[:-1].split('\t')
-                #data = json.loads(line)
-                path = line['img']
-                caption = line['text']
-                label = line['label']
+                data = json.loads(line)
+                
+                path = data['img']
+                caption = data['text']
+                label = data['label']
                 self.X.append('/content/data/'+path)
                 self.Cap.append(caption)
                 self.Y.append(label)
@@ -54,19 +55,19 @@ class mydataset():
         '''
         
         if name in ['valid','test']:
-            self.transform = transforms.Compose([   transforms.Resize(384),
+            self.transform = transforms.Compose([ transforms.Resize(384),
                                                  transforms.CenterCrop(256),
                                                 transforms.ToTensor(),
-                                                transforms.Normalize(mean=[0.485, 0.485, 0.485],
-                                                                    std=[0.229, 0.229, 0.229])
+                                                transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                                                    std=[0.229, 0.224, 0.225])
                                                 ])
         else:
             self.transform = transforms.Compose([ transforms.Resize(256),
                                                  transforms.RandomCrop(224),
                                                 transforms.RandomHorizontalFlip(),
                                                 transforms.ToTensor(),
-                                                transforms.Normalize(mean=[0.485, 0.485, 0.485],
-                                                                    std=[0.229, 0.229, 0.229])
+                                                transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                                                    std=[0.229, 0.224, 0.225])
                                                                                             ])
     
     
@@ -77,14 +78,11 @@ class mydataset():
         For Image and Label
         '''
         image = self.X[index]
-                
-        image = (Image.open(image))
-               
+        image = Image.open(image).convert('RGB')
+        
         image = self.transform(image)
         
         label = float(self.Y[index])
-
-        
         '''
         For Captions, Input ids and Attention mask
         '''
