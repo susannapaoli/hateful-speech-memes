@@ -195,17 +195,6 @@ class mytestdataset():
     
     def __getitem__(self,index):
         
-        
-        '''
-        Image
-        '''
-        image = self.X[index]
-                
-        image = (Image.open(image))
-               
-        image = self.transform(image)
-        
-       
         '''
         For Captions, Input ids, Attention mask and Imagename
         '''
@@ -214,7 +203,7 @@ class mytestdataset():
         attention_masks = self.attention_masks[index]
         Imagename = self.Imagename[index]
         
-        return image, caption, input_id, attention_masks, Imagename
+        return  caption, input_id, attention_masks, Imagename
         
   
     def __len__(self):
