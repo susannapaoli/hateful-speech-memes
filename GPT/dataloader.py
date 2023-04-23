@@ -129,7 +129,7 @@ def tokenize(sequences):
                             max_length = 48,           # Pad & truncate all sentences.
                             truncation=True,
                             #pad_to_max_length = True,
-                            padding=True,
+                            #padding=True,
                             return_attention_mask = True,   # Construct attn. masks.
                             return_tensors = 'pt',      # Return pytorch tensors.
                        )
