@@ -157,8 +157,8 @@ def test_classify(image_model, text_model, fusion_model, test_loader, criterion,
           Prediction
           '''
           
-          predicted = torch.max(output, dim=1)
-          correct += (predicted == target).sum().item()
+          predicted = torch.max(output, dim=1)[1]
+          correct += (predicted.float() == target.float()).sum().item()
           total += target.size(0)
 
           
