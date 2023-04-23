@@ -77,10 +77,10 @@ class mydataset():
         '''
         For Image and Label
         '''
-        image = self.X[index]
-        image = Image.open(image).convert('RGB')
+        #image = self.X[index]
+        #image = Image.open(image).convert('RGB')
         
-        image = self.transform(image)
+        #image = self.transform(image)
         
         label = float(self.Y[index])
         '''
@@ -90,7 +90,7 @@ class mydataset():
         input_id = self.input_ids[index]
         attention_masks = self.attention_masks[index]
         
-        return image, caption, input_id, attention_masks, torch.as_tensor(label).long()
+        return caption, input_id, attention_masks, torch.as_tensor(label).long()
         
   
     def __len__(self):
