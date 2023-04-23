@@ -128,8 +128,8 @@ def tokenize(sequences):
                             add_special_tokens = True, # Add '[CLS]' and '[SEP]'
                             max_length = 48,           # Pad & truncate all sentences.
                             truncation=True,
-                            #pad_to_max_length = True,
-                            padding=True,
+                            pad_to_max_length = True,
+                            
                             return_attention_mask = True,   # Construct attn. masks.
                             return_tensors = 'pt',      # Return pytorch tensors.
                        )
