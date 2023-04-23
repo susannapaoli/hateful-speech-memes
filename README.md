@@ -5,4 +5,5 @@ Using a concatenation-based fusion model, we test different pre-trained large la
 - 'json data' contains json files for unimodal training (captions)
 - 'unimodal experiments' contains notebooks for language model trainings (one for each language model)
 - 'multimodal experiments' contains notebooks for fusion model trainings (one for each language model)
+- 'resnet' contains class for image model initialization
 - 'utils' contains plot curve functions and training/validation functions for unimodal and multimodal models
