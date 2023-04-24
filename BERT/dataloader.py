@@ -245,7 +245,7 @@ class myfusiondataset():
         input_id = self.input_ids[index]
         attention_masks = self.attention_masks[index]
         
-        return caption, input_id, attention_masks, torch.as_tensor(label).long()
+        return image, caption, input_id, attention_masks, torch.as_tensor(label).long()
         
   
     def __len__(self):
