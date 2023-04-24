@@ -8,7 +8,7 @@ import json
 import sentencepiece
 
 '''
-Load the BERT tokenizer.
+Load the XLNet tokenizer.
 '''
 from transformers import XLNetTokenizer
 tokenizer = XLNetTokenizer.from_pretrained('xlnet-base-cased', do_lower_case=True)
