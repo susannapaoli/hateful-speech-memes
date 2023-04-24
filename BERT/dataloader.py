@@ -16,8 +16,8 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=Tru
 
 
 '''
-Dataloader for Training/Validation
-Returns (Image, Caption, Input_id, Attention_mask, label)
+Dataloader for Training/Validation unimodal model
+Returns (Caption, Input_id, Attention_mask, label)
 '''
 class mydataset():    
 
@@ -169,32 +169,37 @@ Attention masks: tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 
 
 
+
 '''
-Dataloader for creating predictions.csv
-Returns (Image, Captions, Input_id, Attention_mask and ImageName)
+Dataloader for Training/Validation multimodal model
+Returns (Image, Caption, Input_id, Attention_mask, label)
 '''
-class mytestdataset():    
+class myfusiondataset():    
 
     def __init__(self, classification_list, name):
 
-        super(mytestdataset).__init__()
+        super(mydataset).__init__()
         
         self.X = []
         self.Cap = []
-        self.Imagename = []
+        self.Y = []
         
         with open(classification_list, mode = 'r') as f:
             
             for line in f:
-                path, caption = line[:-1].split('\t')
-
+                #path, caption, label = line[:-1].split('\t')
+                data = json.loads(line)
+                
+                path = data['img']
+                caption = data['text']
+                label = data['label']
                 self.X.append('/content/data/'+path)
                 self.Cap.append(caption)
-                self.Imagename.append(path.split('/')[1][:-4])
-        
+                self.Y.append(label)
+                
         
         '''
-        Tokenize all of the captions and map the tokens to their word IDs, and get respective attention masks.
+        Tokenize all of the captions and map the tokens to thier word IDs, and get respective attention masks.
         '''
         self.input_ids, self.attention_masks = tokenize(self.Cap)
         
@@ -203,95 +208,9 @@ class mytestdataset():
         '''
         Image Transforms
         '''
-        self.transform = transforms.Compose([   transforms.Resize(256),
-                                                transforms.CenterCrop(224),
-                                                transforms.ToTensor(),
-                                                transforms.Normalize(mean=[0.485, 0.485, 0.485],
-                                                                     std=[0.229, 0.229, 0.229])
-                                            ])
-         
-    
-    def __getitem__(self,index):
-        
-        
-        '''
-        Image
-        '''
-        image = self.X[index]
-                
-        image = (Image.open(image))
-               
-        image = self.transform(image)
-        
-       
-        '''
-        For Captions, Input ids, Attention mask and Imagename
-        '''
-        caption = self.Cap[index]
-        input_id = self.input_ids[index]
-        attention_masks = self.attention_masks[index]
-        Imagename = self.Imagename[index]
-        
-        return image, caption, input_id, attention_masks, Imagename
-        
-  
-    def __len__(self):
-        return len(self.X)
-    
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-       
-'''
-Dataloader for Training/Validation with support for Image Captioning model
-Returns (Image, Caption, Input_id, Attention_mask, Input_id_Captioning_model, Attention_mask_Captioning_model, label)
-'''
-class mydataset_captioning():    
-
-    def __init__(self, classification_list, name):
-
-        super(mydataset_captioning).__init__()
-        
-        self.X = []
-        self.true_Cap = []
-        self.generated_Cap = []
-        self.Y = []
-        
-        with open(classification_list, mode = 'r') as f:
-
-            for line in f:
-                
-                path, caption, generated_caption, label = line[:-1].split('\t')
-
-                self.X.append('/content/data/'+path)
-                self.true_Cap.append(caption)
-                self.generated_Cap.append(generated_caption)
-                self.Y.append(label)
-        
-        '''
-        Tokenize all of the captions and map the tokens to thier word IDs, and get respective attention masks.
-        '''
-        self.input_ids, self.attention_masks = tokenize(self.true_Cap)
-        
-        self.input_ids_cap, self.attention_masks_cap = tokenize(self.generated_Cap)
-        
-        
-        
-        '''
-        Image Transforms
-        '''
         
         if name in ['valid','test']:
-            self.transform = transforms.Compose([   transforms.Resize(384),
+            self.transform = transforms.Compose([ transforms.Resize(384),
                                                  transforms.CenterCrop(256),
                                                 transforms.ToTensor(),
                                                 transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -314,29 +233,21 @@ class mydataset_captioning():
         For Image and Label
         '''
         image = self.X[index]
-                
-        image = (Image.open(image))
-               
+        image = Image.open(image).convert('RGB')
+        
         image = self.transform(image)
         
         label = float(self.Y[index])
-
-        
         '''
         For Captions, Input ids and Attention mask
         '''
-        caption = self.true_Cap[index]
+        caption = self.Cap[index]
         input_id = self.input_ids[index]
         attention_masks = self.attention_masks[index]
-            
-        input_id_cap = self.input_ids_cap[index]
-        attention_masks_cap = self.attention_masks_cap[index]
-    
-            
-            
-        return image, caption, input_id, attention_masks, input_id_cap, attention_masks_cap, torch.as_tensor(label).long()
+        
+        return caption, input_id, attention_masks, torch.as_tensor(label).long()
         
   
     def __len__(self):
         return len(self.X)
-        
+    
