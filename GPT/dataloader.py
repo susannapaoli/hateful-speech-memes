@@ -77,6 +77,15 @@ class mydataset():
     
     def __getitem__(self,index):
         '''
+        For Image and Label
+        '''
+        image = self.X[index]
+        image = Image.open(image).convert('RGB')
+
+        image = self.transform(image)
+
+        label = float(self.Y[index])
+        '''
         For Captions, Input ids and Attention mask
         '''
         caption = self.Cap[index]
