@@ -8,5 +8,5 @@ Using a concatenation-based fusion model, we test different pre-trained large la
 - 'resnet' contains class for image model initialization
 - 'utils' contains plot curve functions and training/validation functions for unimodal and multimodal models
 
-Language models tested in this analysis are: BERT, XLNET, GPT. \ 
+Language models tested in this analysis are: BERT, XLNET, GPT. \\
 Image model used in this analysis is: RESNET 
