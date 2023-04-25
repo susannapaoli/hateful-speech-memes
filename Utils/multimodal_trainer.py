@@ -159,9 +159,9 @@ def test_classify(image_model, text_model, fusion_model, test_loader, criterion,
           print("output:",output)
           output = F.softmax(output, dim=1)
           print("output after softmax:",output)
-          predicted = torch.argmax(output, dim=1).item()
           #predicted = torch.max(output, dim=1)[0]
-          print("prediction:",predicted)
+          predicted = torch.max(output, dim=1)
+          print("prediction:",predicted).item()
           
           prediction = predicted >= 0.5
           print("prediction is",prediction,"while target is",target)
