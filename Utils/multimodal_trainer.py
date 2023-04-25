@@ -166,7 +166,7 @@ def test_classify(image_model, text_model, fusion_model, test_loader, criterion,
           prediction = predicted >= 0.5
           print("prediction is",prediction,"while target is",target)
           correct += (prediction.float() == target.float()).sum().item()
-          total += target.size(0)
+         # total += target.size(0)
 
           
           
