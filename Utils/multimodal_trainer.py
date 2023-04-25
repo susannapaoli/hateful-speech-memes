@@ -6,14 +6,15 @@ import torch.optim as optim
 from collections import defaultdict
 
 
-train_loss= []
-v_loss = []
-v_acc = []
+
 
 
 def train(image_model,text_model,fusion_model,data_loader,test_loader,criterion,optimizer, lr_scheduler, modelpath, writer, device, epochs):
     
     fusion_model.train()
+    train_loss= []
+    v_loss = []
+    v_acc = []
 
     for epoch in range(epochs):
         avg_loss = 0.0
@@ -100,9 +101,11 @@ def train(image_model,text_model,fusion_model,data_loader,test_loader,criterion,
         '''
         
         valid_loss, top1_acc= test_classify(image_model, text_model, fusion_model, test_loader, criterion, device)
+       
         print('Validation Loss: {:.4f}\tValidation Accuracy: {:.4f}'.format(valid_loss, top1_acc))
         v_loss.append(valid_loss)
         v_acc.append(top1_acc)
+        return train_loss, v_loss, v_acc
 
 
         
@@ -156,15 +159,18 @@ def test_classify(image_model, text_model, fusion_model, test_loader, criterion,
           '''
           Prediction
           '''
-          print("output:",output)
+          #print("output:",output)
           output = F.softmax(output, dim=1)
-          print("output after softmax:",output)
+         # print("output after softmax:",output)
           
-          predicted = torch.max(output, dim=1)[0]
-          print("prediction CON [0]:",predicted)
-          prediction = predicted >= 0.60
-          print("prediction is",prediction,"while target is",target)
-          correct += (prediction.float() == target.float()).sum().item()
+          #predicted = torch.max(output, dim=1)[0]
+          #print("prediction CON [0]:",predicted)
+          #prediction = predicted >= 0.60
+          prediction = torch.max(output, dim=1)[1]
+         # print("prediction is",prediction,"while target is",target)
+          matches = prediction.float() == target.float()
+         # print("matches:",matches)
+          correct += (matches).sum().item()
 
           
           
