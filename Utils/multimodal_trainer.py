@@ -162,11 +162,7 @@ def test_classify(image_model, text_model, fusion_model, test_loader, criterion,
           
           predicted = torch.max(output, dim=1)[0]
           print("prediction CON [0]:",predicted)
-          predicted = torch.max(output, dim=1)[1]
-          print("prediction CON [1]:",predicted)
-          predicted = torch.max(output, dim=1)
-          print("prediction SENZA NULLA:",predicted)
-          prediction = predicted >= 0.5
+          prediction = predicted >= 0.60
           print("prediction is",prediction,"while target is",target)
           correct += (prediction.float() == target.float()).sum().item()
 
