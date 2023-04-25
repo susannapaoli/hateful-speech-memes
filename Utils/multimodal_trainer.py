@@ -158,13 +158,16 @@ def test_classify(image_model, text_model, fusion_model, test_loader, criterion,
           '''
           print("output:",output)
           output = F.softmax(output, dim=1)
-          print("output after softmax:",output)
+         # print("output after softmax:",output)
           
-          predicted = torch.max(output, dim=1)[0]
-          print("prediction CON [0]:",predicted)
-          prediction = predicted >= 0.60
+          #predicted = torch.max(output, dim=1)[0]
+          #print("prediction CON [0]:",predicted)
+          #prediction = predicted >= 0.60
+          prediction = torch.max(output, dim=1)[1]
           print("prediction is",prediction,"while target is",target)
-          correct += (prediction.float() == target.float()).sum().item()
+          matches = prediction.float() == target.float()
+          print("matches:",matches)
+          correct += (matches).sum().item()
 
           
           
