@@ -6,14 +6,15 @@ import torch.optim as optim
 from collections import defaultdict
 
 
-train_loss= []
-v_loss = []
-v_acc = []
+
 
 
 def train(image_model,text_model,fusion_model,data_loader,test_loader,criterion,optimizer, lr_scheduler, modelpath, writer, device, epochs):
     
     fusion_model.train()
+    train_loss= []
+    v_loss = []
+    v_acc = []
 
     for epoch in range(epochs):
         avg_loss = 0.0
@@ -100,9 +101,11 @@ def train(image_model,text_model,fusion_model,data_loader,test_loader,criterion,
         '''
         
         valid_loss, top1_acc= test_classify(image_model, text_model, fusion_model, test_loader, criterion, device)
+       
         print('Validation Loss: {:.4f}\tValidation Accuracy: {:.4f}'.format(valid_loss, top1_acc))
         v_loss.append(valid_loss)
         v_acc.append(top1_acc)
+        return train_loss, v_loss, v_acc
 
 
         
