@@ -10,4 +10,4 @@ Using a concatenation-based fusion model, we test different pre-trained large la
 
 Language models tested in this analysis are: BERT, XLNet, GPT2, DeHateBert 
 
-Image model used in this analysis is: RESNET 
+Image model used in this analysis is: pre-trained RESNET
