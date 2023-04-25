@@ -105,7 +105,7 @@ def train(image_model,text_model,fusion_model,data_loader,test_loader,criterion,
         print('Validation Loss: {:.4f}\tValidation Accuracy: {:.4f}'.format(valid_loss, top1_acc))
         v_loss.append(valid_loss)
         v_acc.append(top1_acc)
-        return train_loss, v_loss, v_acc
+    return train_loss, v_loss, v_acc
 
 
         
