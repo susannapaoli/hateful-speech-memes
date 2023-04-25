@@ -5,13 +5,12 @@ from torch.utils import data
 from torchvision import transforms, datasets, models
 from PIL import Image
 import json
-import sentencepiece
 
 '''
-Load the XLNet tokenizer.
+Load the BERT tokenizer.
 '''
-from transformers import XLNetTokenizer
-tokenizer = XLNetTokenizer.from_pretrained('xlnet-base-cased', do_lower_case=True)
+from transformers import BertTokenizer
+tokenizer = BertTokenizer.from_pretrained('Hate-speech-CNERG/dehatebert-mono-english', do_lower_case=True)
 
 
 
@@ -151,10 +150,8 @@ def tokenize(sequences):
 
 '''
 Toy example explaining the working of tokenize function and max_len=48
-
 Original Caption: 
 a phobia is an irrational fear a fear that muslims may be terrorists is not islamaophobia but a fear grounded in history, experience, and reality
-
 Token IDs: tensor([  101,  1037,  6887, 16429,  2401,  2003,  2019, 23179,  3571,  1037,
          3571,  2008,  7486,  2089,  2022, 15554,  2003,  2025,  7025,  7113,
         24920,  2021,  1037,  3571, 16764,  1999,  2381,  1010,  3325,  1010,
@@ -163,7 +160,6 @@ Token IDs: tensor([  101,  1037,  6887, 16429,  2401,  2003,  2019, 23179,  3571
             
 Attention masks: tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-
 '''
 
 
@@ -251,4 +247,3 @@ class myfusiondataset():
   
     def __len__(self):
         return len(self.X)
-    
