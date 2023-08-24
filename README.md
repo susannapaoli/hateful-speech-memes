@@ -11,3 +11,5 @@ Using a concatenation-based fusion model, we test different pre-trained large la
 Language models tested in this analysis are: BERT, XLNet, GPT2, DeHateBert 
 
 Image model used in this analysis is: pre-trained RESNET
+
+Code adapted from [this repository](https://github.com/Abhishek0697/Detection-of-Hate-Speech-in-Multimodal-Memes). 
